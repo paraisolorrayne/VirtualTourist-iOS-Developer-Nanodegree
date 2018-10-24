@@ -9,13 +9,16 @@
 import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
-    
+
+    // MARK: IBOutlet
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+
+    // MARK: Properties
     var url: String!
     
-    func set(imageData: Data) {
-        self.imageView.image = UIImage(data: imageData)
+    func setImageFrom(imageData: Data) {
+        imageView.image = UIImage(data: imageData)
     }
     
     func startActivity() {
@@ -27,11 +30,11 @@ class ImageCollectionViewCell: UICollectionViewCell {
     }
     
     func resetCellImage() {
-        self.imageView.image = nil
+        imageView.image = nil
     }
     
     func setSelected() {
-        self.imageView.alpha = self.imageView.alpha == 0.5 ? 1.0 : 0.5
+        imageView.alpha = self.imageView.alpha == 0.5 ? 1.0 : 0.5
     }
     
 }

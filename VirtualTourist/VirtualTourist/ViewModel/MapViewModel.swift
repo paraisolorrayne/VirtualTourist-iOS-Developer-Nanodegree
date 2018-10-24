@@ -43,7 +43,6 @@ class MapViewModel {
             let result = try dataController.context.fetch(fetchRequest)
             // extract coordinates and call the delegate method
             if result.count > 0 {
-                print(result[0].latitude)
                 let coordinates: [MKPointAnnotation] = result.map {pin in
                     
                     let annotation = MKPointAnnotation()
@@ -61,7 +60,6 @@ class MapViewModel {
     }
     
     func deletePin(pin: MKAnnotationView) {
-        print("deleting...")
         guard let longitude = pin.annotation?.coordinate.longitude,
             let latitude = pin.annotation?.coordinate.latitude else {
                 print("Invalid coordinates")
@@ -75,11 +73,7 @@ class MapViewModel {
                 dataController.context.delete(result[0])
                 dataController.saveDB(context: dataController.context)
                 delegate?.removePinFromMap(pin: pin.annotation!)
-            } else{
-                print("Empty result")
             }
-        } else {
-            print("Pin has not been deleted")
         }
     }
     

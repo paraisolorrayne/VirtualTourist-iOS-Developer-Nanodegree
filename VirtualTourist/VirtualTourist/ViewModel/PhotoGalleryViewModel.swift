@@ -59,7 +59,6 @@ class PhotoGalleryViewModel {
             client.fetchRemoteData(request: url, dataHandler: .dataListHandler, completion: { listData, errorData  in
                 
                 if let error = errorData {
-                    //self.delegate?.displayError(errorData: error)
                     print("Error: ", error.errorTitle)
                     return
                 }

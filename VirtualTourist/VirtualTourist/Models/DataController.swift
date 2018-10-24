@@ -45,7 +45,7 @@ class DataController {
             do {
                 try context.save()
                 print("Context saved")
-            }catch {
+            } catch {
                 print("Can't save context")
             }
         }

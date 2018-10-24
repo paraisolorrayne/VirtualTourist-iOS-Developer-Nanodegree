@@ -21,7 +21,7 @@ class PhotoGalleryViewController: UIViewController {
     var collectionSize = 0
     var gallery: [PhotoF]?
     var photoGallery = [Int:Photo]()
-    var selectedCells = [IndexPath:String]()
+    var selectedCells = [IndexPath : String]()
     var pinCoordinates: CLLocationCoordinate2D?
     var dataController: DataController!
     var photoCache = [Int:Data]()
@@ -75,10 +75,6 @@ class PhotoGalleryViewController: UIViewController {
         selectedCells.removeAll()
         deletePhotos.isEnabled = false
 
-    }
-    
-    deinit {
-        print("PhotoGalleryViewController deallocated")
     }
 }
 
@@ -161,16 +157,13 @@ extension PhotoGalleryViewController: UICollectionViewDelegate, UICollectionView
         cell.activityIndicator.hidesWhenStopped = true
         if  photoGallery.count > 0 {
             if let data = photoGallery[indexPath.row], let payload = data.payload {
-                cell.set(imageData: payload)
+                cell.setImageFrom(imageData: payload)
                 cell.url = data.url
             }
-            print("photo from DB")
-        }else {
+        } else {
             if let cache = photoCache[indexPath.row] {
-                print("photo from cache")
-                cell.set(imageData: cache)
-            }else {
-               print("photo from web")
+                cell.setImageFrom(imageData: cache)
+            } else {
                 cell.resetCellImage()
                 cell.stopActivity()
                 cell.startActivity()
@@ -183,7 +176,7 @@ extension PhotoGalleryViewController: UICollectionViewDelegate, UICollectionView
                     self.photoCache[indexPath.row] = data
                     DispatchQueue.main.async {
                         cell.stopActivity()
-                        cell.set(imageData: data)
+                        cell.setImageFrom(imageData: data)
                     }
                 }
             }
