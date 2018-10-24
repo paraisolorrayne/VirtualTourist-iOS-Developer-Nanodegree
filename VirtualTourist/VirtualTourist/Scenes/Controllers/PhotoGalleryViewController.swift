@@ -10,9 +10,14 @@ import UIKit
 import MapKit
 
 class PhotoGalleryViewController: UIViewController {
-    
+
+    // MARK: IBOutlets
     @IBOutlet weak var deletePhotos: UIBarButtonItem!
     @IBOutlet weak var locationTitle: UILabel!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
+
+    // MARK: Properties
     var collectionSize = 0
     var gallery: [PhotoF]?
     var photoGallery = [Int:Photo]()
@@ -20,9 +25,9 @@ class PhotoGalleryViewController: UIViewController {
     var pinCoordinates: CLLocationCoordinate2D?
     var dataController: DataController!
     var photoCache = [Int:Data]()
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var collectionViewFlowLayout: UICollectionViewFlowLayout!
     var viewModel: PhotoGalleryViewModel?
+
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         deletePhotos.isEnabled = false
@@ -34,9 +39,11 @@ class PhotoGalleryViewController: UIViewController {
         }
         setFlowLayout()
     }
+
     private func setFlowLayout(){
-        let space:CGFloat = 5
-        let width = (view.frame.size.width - 25)/3
+        let space: CGFloat = 5
+        let viewWidth = view.frame.size.width
+        let width = (viewWidth - 25)/3
         let height = width
         
         collectionViewFlowLayout.minimumInteritemSpacing = space
@@ -44,12 +51,15 @@ class PhotoGalleryViewController: UIViewController {
         collectionViewFlowLayout.itemSize = CGSize(width: width, height: height)
         collectionViewFlowLayout.sectionInset = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
     }
+
+    // MARK: IBActions
     @IBAction func newGallery(_ sender: Any) {
         deletePhotos.isEnabled = false
         selectedCells.removeAll()
         photoCache.removeAll()
         viewModel?.loadNewGallery()
     }
+
     @IBAction func trashPhotos(_ sender: Any) {
         // remove from db the selected cells
         
@@ -72,6 +82,7 @@ class PhotoGalleryViewController: UIViewController {
     }
 }
 
+// MARK: Extension
 extension PhotoGalleryViewController: PhotoGalleryDelegate {
     func updateGallery(photo: Gallery) {
         gallery = photo.photo
@@ -129,6 +140,7 @@ extension PhotoGalleryViewController: ErrorControllerProtocol {
     }
     
 }
+
 // MARK: Collection view delegate
 extension PhotoGalleryViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -178,6 +190,7 @@ extension PhotoGalleryViewController: UICollectionViewDelegate, UICollectionView
         }
         return cell
     }
+
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! ImageCollectionViewCell
         cell.setSelected()
@@ -186,11 +199,7 @@ extension PhotoGalleryViewController: UICollectionViewDelegate, UICollectionView
         }else {
             selectedCells[indexPath] = cell.url
         }
-        if selectedCells.count > 0 {
-            deletePhotos.isEnabled = true
-        }else{
-            deletePhotos.isEnabled = false
-        }
+        deletePhotos.isEnabled = (selectedCells.count > 0) ? true : false
     }
     
 }

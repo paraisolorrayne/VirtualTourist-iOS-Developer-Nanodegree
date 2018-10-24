@@ -14,23 +14,23 @@ class ImageCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     var url: String!
     
-    func set(imageData: Data){
+    func set(imageData: Data) {
         self.imageView.image = UIImage(data: imageData)
     }
     
-    func startActivity(){
+    func startActivity() {
         activityIndicator.startAnimating()
     }
     
-    func stopActivity(){
+    func stopActivity() {
         activityIndicator.stopAnimating()
     }
     
-    func resetCellImage(){
+    func resetCellImage() {
         self.imageView.image = nil
     }
     
-    func setSelected(){
+    func setSelected() {
         self.imageView.alpha = self.imageView.alpha == 0.5 ? 1.0 : 0.5
     }
     

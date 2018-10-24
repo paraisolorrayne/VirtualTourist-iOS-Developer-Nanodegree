@@ -11,11 +11,16 @@ import MapKit
 
 class MapViewController: UIViewController {
 
+    // MARK: IBOutlet
     @IBOutlet weak var editButton: UIBarButtonItem!
     @IBOutlet weak var mapView: MKMapView!
+
+    // MARK: Properties
     var dataController: DataController!
     var mapViewModel: MapViewModel?
     var selectedPin: MKAnnotationView?
+
+    // MARK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self

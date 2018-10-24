@@ -29,7 +29,7 @@ class MapViewModel {
         self.dataController = dataController
     }
     
-    func savePin(coordinates: MKPointAnnotation){
+    func savePin(coordinates: MKPointAnnotation) {
         let pin = Pin(context: dataController.context)
         pin.latitude = coordinates.coordinate.latitude as Double
         pin.longitude = coordinates.coordinate.longitude as Double
@@ -37,7 +37,7 @@ class MapViewModel {
         dataController.saveDB(context: dataController.context)
     }
     
-    func loadPin(){
+    func loadPin() {
         let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
         do {
             let result = try dataController.context.fetch(fetchRequest)
@@ -55,12 +55,12 @@ class MapViewModel {
                 }
                 delegate?.updatePinsOnTheMap(pins: coordinates)
             }
-        }catch {
+        } catch {
             print("Error fetching DB")
         }
     }
     
-    func deletePin(pin: MKAnnotationView){
+    func deletePin(pin: MKAnnotationView) {
         print("deleting...")
         guard let longitude = pin.annotation?.coordinate.longitude,
             let latitude = pin.annotation?.coordinate.latitude else {
@@ -75,10 +75,10 @@ class MapViewModel {
                 dataController.context.delete(result[0])
                 dataController.saveDB(context: dataController.context)
                 delegate?.removePinFromMap(pin: pin.annotation!)
-            }else{
+            } else{
                 print("Empty result")
             }
-        }else {
+        } else {
             print("Pin has not been deleted")
         }
     }

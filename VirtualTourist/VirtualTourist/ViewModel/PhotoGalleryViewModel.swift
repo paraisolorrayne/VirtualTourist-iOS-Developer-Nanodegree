@@ -17,8 +17,8 @@ protocol PhotoGalleryDelegate: class {
     func updateTitle(title: String)
 }
 
-
 class PhotoGalleryViewModel {
+
     let dataController: DataController
     let coordinates: CLLocationCoordinate2D
     var pin: Pin!
@@ -29,7 +29,7 @@ class PhotoGalleryViewModel {
         self.coordinates = coordinates
     }
     
-    func getPhotoUrls(page: Int){
+    func getPhotoUrls(page: Int) {
         pin = fetchPin(coordinates)
         // check if there are stored photos for the pin
         if let photos = fetchPhoto(pin), photos.count > 0 {
@@ -56,7 +56,6 @@ class PhotoGalleryViewModel {
                 print("Error in url")
                 return
             }
-            print(url)
             client.fetchRemoteData(request: url, dataHandler: .dataListHandler, completion: { listData, errorData  in
                 
                 if let error = errorData {
@@ -79,7 +78,7 @@ class PhotoGalleryViewModel {
         }
     }
     
-    func fetchImage(url: String, completion: @escaping (Data?) -> () ){
+    func fetchImage(url: String, completion: @escaping (Data?) -> () ) {
         let client = Client()
         guard let url = URL(string: url) else {
             print("Invalid url")
@@ -102,10 +101,7 @@ class PhotoGalleryViewModel {
         }
     }
     
-    func getLocationDescription(){
-        
-    }
-    func lookUpCurrentLocation(){
+    func lookUpCurrentLocation() {
         let location = CLLocation(latitude: coordinates.latitude, longitude: coordinates.longitude)
         let geocoder = CLGeocoder()
         geocoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) in
@@ -120,7 +116,7 @@ class PhotoGalleryViewModel {
         })
     }
     
-    func fetchPin(_ coordinates: CLLocationCoordinate2D) -> Pin?{
+    func fetchPin(_ coordinates: CLLocationCoordinate2D) -> Pin? {
         let longitude = coordinates.longitude
         let latitude = coordinates.latitude
         let fetchRequest: NSFetchRequest<Pin> = Pin.fetchRequest()
@@ -134,7 +130,7 @@ class PhotoGalleryViewModel {
         return nil
     }
     
-    func fetchPhoto(_ pin: Pin) -> [Photo]?{
+    func fetchPhoto(_ pin: Pin) -> [Photo]? {
         let fetchRequest: NSFetchRequest<Photo> = Photo.fetchRequest()
         let predicate = NSPredicate(format: "pin == %@", pin)
         fetchRequest.predicate = predicate
@@ -144,7 +140,7 @@ class PhotoGalleryViewModel {
         return nil
     }
     
-    func addPhoto(url: String, data: Data){
+    func addPhoto(url: String, data: Data) {
         let photo = Photo(context: dataController.context)
         photo.payload = data
         photo.url = url
@@ -155,7 +151,7 @@ class PhotoGalleryViewModel {
         dataController.context.delete(photo)
     }
     
-    func loadNewGallery(){
+    func loadNewGallery() {
         // First remove all the photo for the pin
         if let photos = fetchPhoto(pin) {
             for photo in photos {
@@ -169,7 +165,7 @@ class PhotoGalleryViewModel {
         getPhotoUrls(page: Int(pin.currentPage))
     }
     
-    func removePhotos(list: [IndexPath:String]){
+    func removePhotos(list: [IndexPath:String]) {
         print("removed from db")
         let arrayOfUrl = Array(list.values)
         var photoToDelete = [Photo]()
