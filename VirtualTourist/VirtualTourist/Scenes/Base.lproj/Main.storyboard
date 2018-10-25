@@ -137,11 +137,44 @@
                         <outlet property="collectionViewFlowLayout" destination="SZo-H3-gPg" id="kNP-eO-QAd"/>
                         <outlet property="deletePhotos" destination="2k7-4r-0IO" id="OKG-KN-jRj"/>
                         <outlet property="locationTitle" destination="i0T-Ek-URI" id="p3O-zT-0B6"/>
+                        <segue destination="4ZZ-PF-iFD" kind="show" identifier="PhotoDetailViewController" id="BFc-Ac-77V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S4R-TU-2gd" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1901.5999999999999" y="132.68365817091455"/>
+        </scene>
+        <!--Photo Detail View Controller-->
+        <scene sceneID="hSB-8D-SF4">
+            <objects>
+                <viewController storyboardIdentifier="PhotoDetailViewController" id="4ZZ-PF-iFD" customClass="PhotoDetailViewController" customModule="VirtualTourist" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="L6R-Uo-hQa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="auX-Xo-73D">
+                                <rect key="frame" x="67" y="269" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="375" id="h4H-Q8-Mot"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="auX-Xo-73D" secondAttribute="trailing" constant="80" id="6NK-9P-F8o"/>
+                            <constraint firstItem="auX-Xo-73D" firstAttribute="centerY" secondItem="L6R-Uo-hQa" secondAttribute="centerY" id="Bdp-LX-gmg"/>
+                            <constraint firstItem="auX-Xo-73D" firstAttribute="centerX" secondItem="L6R-Uo-hQa" secondAttribute="centerX" id="bgO-m0-bqJ"/>
+                            <constraint firstItem="auX-Xo-73D" firstAttribute="leading" secondItem="L6R-Uo-hQa" secondAttribute="leading" constant="80" id="imW-5l-61j"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="lxi-Bw-Itq"/>
+                    </view>
+                    <connections>
+                        <outlet property="imageView" destination="auX-Xo-73D" id="OAK-L1-oEw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Dao-gW-TaQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2784" y="139"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nrm-YI-kIH">

@@ -48,7 +48,7 @@ class MapViewModel {
                     let annotation = MKPointAnnotation()
                     annotation.coordinate.latitude = CLLocationDegrees(pin.latitude)
                     annotation.coordinate.longitude = CLLocationDegrees(pin.longitude)
-                    annotation.title = "Photo Gallery"
+                    annotation.title = "\(pin.location ?? "") Photo Gallery"
                     annotation.subtitle = "tap to view"
                     return annotation
                 }
@@ -59,7 +59,7 @@ class MapViewModel {
         }
     }
     
-    func deletePin(pin: MKAnnotationView) {
+    func delete(pin: MKAnnotationView) {
         guard let longitude = pin.annotation?.coordinate.longitude,
             let latitude = pin.annotation?.coordinate.latitude else {
                 print("Invalid coordinates")

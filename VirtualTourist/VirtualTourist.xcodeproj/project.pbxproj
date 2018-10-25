@@ -18,6 +18,7 @@
 		552781E62180A60600E200CD /* DataParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552781E12180A60600E200CD /* DataParser.swift */; };
 		552781EA2180A66F00E200CD /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552781E82180A66F00E200CD /* MapViewModel.swift */; };
 		552781EB2180A66F00E200CD /* PhotoGalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 552781E92180A66F00E200CD /* PhotoGalleryViewModel.swift */; };
+		5527821621817EE000E200CD /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5527821521817EE000E200CD /* PhotoDetailViewController.swift */; };
 		55E87B0D217CE6260036CAEE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E87B0C217CE6260036CAEE /* AppDelegate.swift */; };
 		55E87B12217CE6260036CAEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 55E87B10217CE6260036CAEE /* Main.storyboard */; };
 		55E87B15217CE6260036CAEE /* VirtualTourist.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 55E87B13217CE6260036CAEE /* VirtualTourist.xcdatamodeld */; };
@@ -56,6 +57,7 @@
 		552781E12180A60600E200CD /* DataParser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataParser.swift; sourceTree = "<group>"; };
 		552781E82180A66F00E200CD /* MapViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		552781E92180A66F00E200CD /* PhotoGalleryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoGalleryViewModel.swift; sourceTree = "<group>"; };
+		5527821521817EE000E200CD /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		55E87B09217CE6260036CAEE /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E87B0C217CE6260036CAEE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		55E87B11217CE6260036CAEE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -112,6 +114,7 @@
 				552781D42180A4F100E200CD /* ImageCollectionViewCell.swift */,
 				552781D52180A4F100E200CD /* MapViewController.swift */,
 				552781D72180A4F100E200CD /* PhotoGalleryViewController.swift */,
+				5527821521817EE000E200CD /* PhotoDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				552781E32180A60600E200CD /* DataController.swift in Sources */,
 				552781DB2180A4F100E200CD /* PhotoGalleryViewController.swift in Sources */,
 				552781DA2180A4F100E200CD /* ErrorManager.swift in Sources */,
+				5527821621817EE000E200CD /* PhotoDetailViewController.swift in Sources */,
 				552781EB2180A66F00E200CD /* PhotoGalleryViewModel.swift in Sources */,
 				552781E42180A60600E200CD /* Client.swift in Sources */,
 				552781EA2180A66F00E200CD /* MapViewModel.swift in Sources */,

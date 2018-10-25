@@ -160,7 +160,6 @@ class PhotoGalleryViewModel {
         dataController.saveDB(context: dataController.context)
         delegate?.cleanGallery()
         pin.currentPage += Int32(1)
-        print("current page: ", pin.currentPage)
         getPhotoUrls(page: Int(pin.currentPage))
     }
     

@@ -35,36 +35,52 @@ class MapViewController: UIViewController {
     }
     
     // func called when gesture recognizer detects a long press
-    fileprivate func addPin(_ currentPin: MKPointAnnotation) {
-        currentPin.title = "Photo Gallery"
+    fileprivate func addPin(_ currentPin: MKPointAnnotation, in name: String) {
+        currentPin.title = "\(name) Photo Gallery"
         currentPin.subtitle = "tap to view"
         DispatchQueue.main.async {
             self.mapView.addAnnotation(currentPin)
         }
     }
-    
+
     @objc func mapLongPress(_ recognizer: UIGestureRecognizer) {
         let touchedAt = recognizer.location(in: self.mapView) // adds the location on the view it was pressed
         let touchedAtCoordinate : CLLocationCoordinate2D = mapView.convert(touchedAt, toCoordinateFrom: self.mapView) // will get coordinates
+        
         let currentPin = MKPointAnnotation()
         currentPin.coordinate = touchedAtCoordinate
         
-        if recognizer.state == .began {
-            addPin(currentPin)
-            updateDB(pin: currentPin)
-        }
+        let geoCoder = CLGeocoder()
+        let location = CLLocation(latitude: touchedAtCoordinate.latitude, longitude: touchedAtCoordinate.longitude)
+        var locationName = String()
+        
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            
+            // Place details
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+
+            if let city = placeMark.locality {
+                locationName = city
+            }
+
+            if recognizer.state == .began {
+                self.addPin(currentPin, in: locationName)
+                self.updateDB(pin: currentPin)
+            }
+        })
     }
     
     // this function is called when the user has finished to set a new location.
     // it saves the location to the db
-    func updateDB(pin: MKPointAnnotation){
+    func updateDB(pin: MKPointAnnotation) {
         mapViewModel?.savePin(coordinates: pin)
     }
     
     // delete the slected pin
     @IBAction func deletePin(_ sender: Any) {
         if let pin = selectedPin {
-            mapViewModel?.deletePin(pin: pin)
+            mapViewModel?.delete(pin: pin)
             editButton.isEnabled = false
         }
     }
@@ -73,7 +89,7 @@ extension MapViewController: MapViewPinsDelegate {
     func updatePinsOnTheMap(pins: [MKPointAnnotation]) {
             self.mapView.addAnnotations(pins)
     }
-    func removePinFromMap(pin: MKAnnotation){
+    func removePinFromMap(pin: MKAnnotation) {
         DispatchQueue.main.async {
             self.mapView.removeAnnotation(pin)
         }

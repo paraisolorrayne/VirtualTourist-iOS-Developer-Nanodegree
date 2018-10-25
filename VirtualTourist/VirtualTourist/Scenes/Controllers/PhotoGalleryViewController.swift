@@ -31,13 +31,20 @@ class PhotoGalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         deletePhotos.isEnabled = false
+        if( traitCollection.forceTouchCapability == .available) {
+            registerForPreviewing(with: self, sourceView: view)
+        }
+        setupCoordinates()
+        setFlowLayout()
+    }
+
+    private func setupCoordinates() {
         if let coordinates = pinCoordinates {
             viewModel = PhotoGalleryViewModel(dataController: dataController, coordinates: coordinates)
             viewModel?.delegate = self
-            viewModel?.getPhotoUrls(page: 1)
+            viewModel?.getPhotoUrls(page: 0)
             viewModel?.lookUpCurrentLocation()
         }
-        setFlowLayout()
     }
 
     private func setFlowLayout(){
@@ -189,7 +196,7 @@ extension PhotoGalleryViewController: UICollectionViewDelegate, UICollectionView
         cell.setSelected()
         if let _ = selectedCells[indexPath] {
             selectedCells.removeValue(forKey: indexPath)
-        }else {
+        } else {
             selectedCells[indexPath] = cell.url
         }
         deletePhotos.isEnabled = (selectedCells.count > 0) ? true : false
@@ -197,3 +204,32 @@ extension PhotoGalleryViewController: UICollectionViewDelegate, UICollectionView
     
 }
 
+extension PhotoGalleryViewController {
+    func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    }
+}
+
+extension PhotoGalleryViewController: UIViewControllerPreviewingDelegate {
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = collectionView?.indexPathForItem(at: location) else { return nil }
+        
+        guard let cell = collectionView?.cellForItem(at: indexPath) else { return nil }
+        
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "PhotoDetailViewController") as? PhotoDetailViewController else { return nil }
+        performSegue(withIdentifier: "PhotoDetailViewController", sender: self)
+        let photo = photoCache[indexPath.row]
+        detailVC.photo = photo
+        
+        detailVC.preferredContentSize = CGSize(width: 0.0, height: 300)
+        
+        previewingContext.sourceRect = cell.frame
+        
+        return detailVC
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        
+    }
+    
+
+}
