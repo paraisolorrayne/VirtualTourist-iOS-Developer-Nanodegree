@@ -31,7 +31,7 @@ class PhotoGalleryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         deletePhotos.isEnabled = false
-        if( traitCollection.forceTouchCapability == .available) {
+        if traitCollection.forceTouchCapability == .available {
             registerForPreviewing(with: self, sourceView: view)
         }
         setupCoordinates()

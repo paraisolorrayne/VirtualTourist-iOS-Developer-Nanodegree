@@ -15,7 +15,7 @@ class DataParser {
         var jsonStruct: T? = nil
         do {
             jsonStruct = try jsonDecoder.decode(T.self, from: data)
-        }catch {
+        } catch {
             let errorData = ErrorData(errorTitle: Constants.Errors.errorDataTitle, errorMsg: error.localizedDescription)
             return (nil, errorData)
         }
